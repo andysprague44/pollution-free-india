@@ -1,50 +1,84 @@
-"use client";
+'use client'
 
-import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { generateEmail } from '../actions/generateEmail'
 
-function EmailContent() {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const searchParams = useSearchParams();
+export default function Email() {
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [age, setAge] = useState('')
+  const [occupation, setOccupation] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState('')
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    const nameParam = searchParams.get("name");
-    if (nameParam) {
-      setName(nameParam);
-      // In a real application, we would generate the email using AI here
-      setEmail(`Dear Delhi CM,
+    const nameParam = searchParams.get('name') || ''
+    const ageParam = searchParams.get('age') || ''
+    const occupationParam = searchParams.get('occupation') || ''
 
-I am ${nameParam}, a concerned citizen of Delhi. I am writing to demand immediate action on the severe air pollution crisis in our city. The air quality has reached hazardous levels, posing serious health risks to all residents, especially children and the elderly.
+    setName(nameParam)
+    setAge(ageParam)
+    setOccupation(occupationParam)
 
-I urge you to implement stricter regulations on industrial emissions, promote clean energy alternatives, and improve public transportation to reduce vehicle pollution. We need a comprehensive plan to tackle this issue and ensure a healthier future for all Delhiites.
+    const generateEmailContent = async () => {
+      setIsLoading(true)
+      const result = await generateEmail(nameParam, ageParam, occupationParam)
+      setIsLoading(false)
 
-Please prioritize this urgent matter. Our health and well-being depend on your swift action.
-
-Sincerely,
-${nameParam}`);
+      if (result.success) {
+        setEmail(result.email)
+      } else {
+        setError(result.error || 'An error occurred while generating the email.')
+      }
     }
-  }, [searchParams]);
+
+    generateEmailContent()
+  }, [searchParams])
 
   const handleEmailEdit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setEmail(e.target.value);
-  };
+    setEmail(e.target.value)
+  }
 
   const handleSendEmail = () => {
-    const subject = encodeURIComponent(
-      "Urgent: Action Needed on Delhi Air Pollution"
-    );
-    const body = encodeURIComponent(email);
-    window.location.href = `mailto:delhicm@example.com?subject=${subject}&body=${body}`;
-  };
+    const subject = encodeURIComponent('Urgent: Action Needed on Delhi Air Pollution')
+    const body = encodeURIComponent(email)
+    window.location.href = `mailto:delhicm@example.com?subject=${subject}&body=${body}`
+  }
+
+  if (isLoading) {
+    return (
+      <div className="max-w-2xl mx-auto mt-8 p-4">
+        <h1 className="text-2xl font-bold mb-4">Generating Your Personalized Email</h1>
+        <p>Please wait while we create your email...</p>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-2xl mx-auto mt-8 p-4">
+        <h1 className="text-2xl font-bold mb-4">Error</h1>
+        <p className="text-red-600">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Try Again
+        </button>
+      </div>
+    )
+  }
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto mt-8 p-4">
       <h1 className="text-2xl font-bold mb-4">Your Personalized Email</h1>
       <textarea
         value={email}
         onChange={handleEmailEdit}
         className="w-full h-64 p-2 border rounded mb-4"
+        aria-label="Generated email content"
       />
       <button
         onClick={handleSendEmail}
@@ -53,25 +87,6 @@ ${nameParam}`);
         Send Email
       </button>
     </div>
-  );
+  )
 }
 
-function LoadingState() {
-  return (
-    <div className="max-w-2xl mx-auto">
-      <div className="animate-pulse">
-        <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-        <div className="h-64 bg-gray-200 rounded mb-4"></div>
-        <div className="h-10 bg-gray-200 rounded w-32"></div>
-      </div>
-    </div>
-  );
-}
-
-export default function EmailPage() {
-  return (
-    <Suspense fallback={<LoadingState />}>
-      <EmailContent />
-    </Suspense>
-  );
-}
