@@ -1,17 +1,17 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
-export default function Email() {
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const searchParams = useSearchParams()
+function EmailContent() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const nameParam = searchParams.get('name')
+    const nameParam = searchParams.get("name");
     if (nameParam) {
-      setName(nameParam)
+      setName(nameParam);
       // In a real application, we would generate the email using AI here
       setEmail(`Dear Delhi CM,
 
@@ -22,19 +22,21 @@ I urge you to implement stricter regulations on industrial emissions, promote cl
 Please prioritize this urgent matter. Our health and well-being depend on your swift action.
 
 Sincerely,
-${nameParam}`)
+${nameParam}`);
     }
-  }, [searchParams])
+  }, [searchParams]);
 
   const handleEmailEdit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setEmail(e.target.value)
-  }
+    setEmail(e.target.value);
+  };
 
   const handleSendEmail = () => {
-    const subject = encodeURIComponent('Urgent: Action Needed on Delhi Air Pollution')
-    const body = encodeURIComponent(email)
-    window.location.href = `mailto:delhicm@example.com?subject=${subject}&body=${body}`
-  }
+    const subject = encodeURIComponent(
+      "Urgent: Action Needed on Delhi Air Pollution"
+    );
+    const body = encodeURIComponent(email);
+    window.location.href = `mailto:delhicm@example.com?subject=${subject}&body=${body}`;
+  };
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -51,6 +53,25 @@ ${nameParam}`)
         Send Email
       </button>
     </div>
-  )
+  );
 }
 
+function LoadingState() {
+  return (
+    <div className="max-w-2xl mx-auto">
+      <div className="animate-pulse">
+        <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+        <div className="h-64 bg-gray-200 rounded mb-4"></div>
+        <div className="h-10 bg-gray-200 rounded w-32"></div>
+      </div>
+    </div>
+  );
+}
+
+export default function EmailPage() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <EmailContent />
+    </Suspense>
+  );
+}
