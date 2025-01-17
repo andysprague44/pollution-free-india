@@ -19,6 +19,7 @@ I am ${name}, a ${age}-year-old ${occupation}, and long-time resident of Delhi. 
 I urge you to implement stricter regulations on industrial emissions, promote clean energy alternatives, and improve public transportation to reduce vehicle pollution. We need a comprehensive plan to tackle this issue and ensure a healthier future for all Delhiites.
 
 Please prioritize this urgent matter. Our health and well-being depend on your swift action.
+
 Sincerely,
 ${name}`
 
