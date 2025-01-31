@@ -1,6 +1,5 @@
 # Pollution Free India
 
-## Description
 This project aims to create a platform for promoting pollution-free initiatives in India.
 
 ## Prerequisites
