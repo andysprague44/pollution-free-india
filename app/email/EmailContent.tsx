@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { generateEmail } from '../actions/generateEmail'
 
@@ -11,6 +11,7 @@ export default function EmailContent() {
   const [occupation, setOccupation] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
   const searchParams = useSearchParams()
 
   useEffect(() => {
@@ -36,6 +37,18 @@ export default function EmailContent() {
 
     generateEmailContent()
   }, [searchParams])
+
+  useEffect(() => {
+    const adjustTextareaHeight = () => {
+      const textarea = textareaRef.current
+      if (textarea) {
+        textarea.style.height = 'auto'
+        textarea.style.height = `${textarea.scrollHeight}px`
+      }
+    }
+
+    adjustTextareaHeight()
+  }, [email])
 
   const handleEmailEdit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEmail(e.target.value)
@@ -75,9 +88,10 @@ export default function EmailContent() {
     <div className="max-w-2xl mx-auto mt-8 p-4">
       <h1 className="text-2xl font-bold mb-4">Your Personalized Email</h1>
       <textarea
+        ref={textareaRef}
         value={email}
         onChange={handleEmailEdit}
-        className="w-full h-64 p-2 border rounded mb-4"
+        className="w-full min-h-[200px] p-2 border rounded mb-4 resize-none overflow-hidden"
         aria-label="Generated email content"
       />
       <button
@@ -89,4 +103,3 @@ export default function EmailContent() {
     </div>
   )
 }
-
