@@ -13,7 +13,7 @@ function EmailLoading() {
   return (
     <div className="max-w-2xl mx-auto mt-8 p-4">
       <h1 className="text-2xl font-bold mb-4">Generating Your Personalized Email</h1>
-      <p>Please wait while we create your email...</p>
+      <p>Should be quick...</p>
     </div>
   )
 }
