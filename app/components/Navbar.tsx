@@ -1,40 +1,59 @@
+'use client'
+
 import Link from 'next/link'
+import MobileNav from './MobileNav'
 
 export default function Navbar() {
   return (
-    <nav className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="/" className="text-[#f47704] text-xl font-bold hover:opacity-90 transition-opacity">
-          The Article21 Initiative
-        </Link>
-        <ul className="flex space-x-6">
-          <li>
-            <Link 
+    <header className="bg-white shadow-sm">
+      <div className="container mx-auto px-4">
+        <nav className="flex justify-between items-center h-16">
+          {/* Logo for mobile, Text for desktop */}
+          <Link href="/" className="flex items-center">
+            <img
+              src="/logo.png"
+              alt="Article21 Initiative Logo"
+              className="md:hidden h-10 w-auto"
+            />
+            <span className="hidden md:block text-[#f47704] text-xl font-bold">
+              The Article21 Initiative
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            <Link
               href="/"
-              className="text-gray-700 hover:text-[#f47704] transition-colors text-sm font-medium"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
             >
               Home
             </Link>
-          </li>
-          <li>
-            <Link 
-              href="/form" 
-              className="text-gray-700 hover:text-[#f47704] transition-colors text-sm font-medium"
-            >
-              Email CM
-            </Link>
-          </li>
-          <li>
-            <Link 
-              href="/faq" 
-              className="text-gray-700 hover:text-[#f47704] transition-colors text-sm font-medium"
+            <Link
+              href="/faq"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
             >
               FAQ
             </Link>
-          </li>
-        </ul>
+            <Link
+              href="/contact"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
+            >
+              Contact
+            </Link>
+            <Link
+              href="/form"
+              className="bg-[#f47704] text-white px-4 py-2 rounded-lg 
+                     hover:bg-[#f47704]/90 transition-all duration-200 
+                     focus:outline-none focus:ring-2 focus:ring-[#f47704] focus:ring-offset-2"
+            >
+              Email Delhi CM
+            </Link>
+          </div>
+
+          {/* Mobile Navigation */}
+          <MobileNav />
+        </nav>
       </div>
-    </nav>
+    </header>
   )
 }
-
