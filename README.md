@@ -1,6 +1,6 @@
 # Pollution Free India
 
-This project aims to create a platform for promoting pollution-free initiatives in India.
+This project aims to create a platform for promoting pollution-free initiatives in India via generation of personalized emails.
 
 ## Prerequisites
 - Node.js (version 14 or higher)
