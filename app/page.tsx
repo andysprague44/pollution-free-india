@@ -77,9 +77,9 @@ export default function Home() {
               >
                 Email Delhi CM
               </Link>
-              <p className="mt-4 text-sm text-gray-600">
+              {/* <p className="mt-4 text-sm text-gray-600">
                 Join X others who have already taken action
-              </p>
+              </p> */}
             </div>
           </div>
         </div>

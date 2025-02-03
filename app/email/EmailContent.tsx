@@ -80,7 +80,7 @@ export default function EmailContent() {
     return (
       <div className="max-w-2xl mx-auto mt-8 p-4">
         <h1 className="text-2xl font-bold mb-4 text-[#f47704]">Generating Your Personalized Email</h1>
-        <p className="text-gray-600">Please wait while we create your email based on your experiences...</p>
+        <p className="text-gray-600">Should be quick...</p>
       </div>
     )
   }
