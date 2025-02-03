@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import AQIDisplay from "./components/AQIDisplay";
 
 export default function Home() {
   return (
@@ -15,6 +16,9 @@ export default function Home() {
         />
         <div className="relative container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-3xl mx-auto text-center">
+            <div className="mb-8">
+              <AQIDisplay />
+            </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-6">
               Clean Air for Delhi: Demand Action Now
             </h1>
@@ -76,21 +80,6 @@ export default function Home() {
               <p className="mt-4 text-sm text-gray-600">
                 Join X others who have already taken action
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-gray-100 py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-              <h2 className="text-2xl font-bold text-[#ea1111]">Delhi AQI</h2>
-              <p className="text-xl font-bold">326 Very Poor</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-              <p className="text-2xl font-bold text-[#ea1111]">60x</p>
-              <p className="text-sm font-medium">PM2.5 LIMIT</p>
             </div>
           </div>
         </div>
