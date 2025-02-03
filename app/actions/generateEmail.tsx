@@ -47,7 +47,9 @@ export async function generateEmail(
          - Promotion of clean energy
          - Improvement of public transportation
          - Better enforcement of existing environmental laws
-      5. Be professional yet convey the gravity of the situation`,
+      5. Be professional yet convey the gravity of the situation
+      6. Not include a subject line, begin from the greeting.
+      `,
       maxTokens: 1000,
       temperature: 0.8
     })
