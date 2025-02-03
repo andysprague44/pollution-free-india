@@ -6,30 +6,46 @@ import { generateEmail } from '../actions/generateEmail'
 
 export default function EmailContent() {
   const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [age, setAge] = useState('')
-  const [occupation, setOccupation] = useState('')
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    profession: '',
+    impacts: [] as string[],
+    additionalComments: ''
+  })
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    const nameParam = searchParams.get('name') || ''
-    const ageParam = searchParams.get('age') || ''
-    const occupationParam = searchParams.get('occupation') || ''
+    const name = searchParams.get('name') || ''
+    const age = searchParams.get('age') || ''
+    const profession = searchParams.get('profession') || ''
+    const impacts = JSON.parse(searchParams.get('impacts') || '[]')
+    const additionalComments = searchParams.get('additionalComments') || ''
 
-    setName(nameParam)
-    setAge(ageParam)
-    setOccupation(occupationParam)
+    setFormData({
+      name,
+      age,
+      profession,
+      impacts,
+      additionalComments
+    })
 
     const generateEmailContent = async () => {
       setIsLoading(true)
-      const result = await generateEmail(nameParam, ageParam, occupationParam)
+      const result = await generateEmail(
+        name,
+        age,
+        profession,
+        impacts,
+        additionalComments
+      )
       setIsLoading(false)
 
       if (result.success) {
-        setEmail(result.email)
+        setEmail(result.email || '')
       } else {
         setError(result.error || 'An error occurred while generating the email.')
       }
@@ -63,8 +79,8 @@ export default function EmailContent() {
   if (isLoading) {
     return (
       <div className="max-w-2xl mx-auto mt-8 p-4">
-        <h1 className="text-2xl font-bold mb-4">Generating Your Personalized Email</h1>
-        <p>Please wait while we create your email...</p>
+        <h1 className="text-2xl font-bold mb-4 text-[#f47704]">Generating Your Personalized Email</h1>
+        <p className="text-gray-600">Please wait while we create your email based on your experiences...</p>
       </div>
     )
   }
@@ -72,11 +88,11 @@ export default function EmailContent() {
   if (error) {
     return (
       <div className="max-w-2xl mx-auto mt-8 p-4">
-        <h1 className="text-2xl font-bold mb-4">Error</h1>
+        <h1 className="text-2xl font-bold mb-4 text-[#f47704]">Error</h1>
         <p className="text-red-600">{error}</p>
         <button
           onClick={() => window.location.reload()}
-          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="mt-4 bg-[#f47704] hover:bg-[#f47704]/90 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
         >
           Try Again
         </button>
@@ -85,18 +101,21 @@ export default function EmailContent() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 p-4">
-      <h1 className="text-2xl font-bold mb-4">Your Personalized Email</h1>
+    <div className="max-w-2xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-sm">
+      <h1 className="text-3xl font-bold mb-6 text-[#f47704]">Your Personalized Email</h1>
+      <p className="text-gray-600 mb-6">
+        Review your email below. Feel free to make any edits before sending.
+      </p>
       <textarea
         ref={textareaRef}
         value={email}
         onChange={handleEmailEdit}
-        className="w-full min-h-[200px] p-2 border rounded mb-4 resize-none overflow-hidden"
+        className="w-full min-h-[200px] p-4 border border-gray-300 rounded-lg mb-6 resize-none overflow-hidden focus:ring-[#f47704] focus:border-[#f47704] transition-colors"
         aria-label="Generated email content"
       />
       <button
         onClick={handleSendEmail}
-        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="w-full bg-[#f47704] hover:bg-[#f47704]/90 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#f47704] focus:ring-offset-2"
       >
         Send Email
       </button>
