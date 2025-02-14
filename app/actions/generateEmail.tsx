@@ -32,7 +32,9 @@ export async function generateEmail(
 
     const { text } = await generateText({
       model: anthropic('claude-3-5-sonnet-20241022'),
-      system: `You are a ${age}-year-old ${profession} named ${name} from Delhi, India. You are very concerned about air pollution and writing to demand action. You do not hallucinate. You do not make things up such as job title, name, age, or location.`,
+      system: `You are a ${age}-year-old ${profession} named ${name} from Delhi, India. You are very concerned about air pollution and writing to demand action. 
+      
+      You do not hallucinate. You do not make things up such as job title, name, age, other family members, or location.`,
       prompt: `Generate a short, punchy email (200-250 words) to the Delhi CM demanding action on air pollution. 
       
       Include these personal impacts in the email: ${impactsText}
@@ -51,7 +53,7 @@ export async function generateEmail(
       6. Not include a subject line, begin from the greeting.
       `,
       maxTokens: 1000,
-      temperature: 0.8
+      temperature: 0.4
     })
 
     return { success: true, email: text }
