@@ -8,6 +8,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { toast, Toaster } from 'react-hot-toast';
 
 export default function EmailContent() {
+  const [showImDone, setShowImDone] = useState(false);
   const [email, setEmail] = useState('')
   const [formData, setFormData] = useState({
     name: '',
@@ -85,21 +86,23 @@ export default function EmailContent() {
         duration: 2000,
         className: "bg-gray-800 text-white"
       })
+      setShowImDone(true); // Show "I'm Done!" button
     } catch (err) {
       toast("Failed to copy email", {
         duration: 2000,
         className: "bg-gray-800 text-white"
       })
     }
-
-    router.push('/congratulations')
   }
 
   const handleSendEmail = () => {
     const subject = encodeURIComponent('Urgent: Action Needed on Delhi Air Pollution')
     const body = encodeURIComponent(email)
     window.location.href = `mailto:delhicm@example.com?subject=${subject}&body=${body}`
+    setShowImDone(true); // Show "I'm Done!" button
+  }
 
+  const handleImDone = () => {
     router.push('/congratulations')
   }
 
@@ -149,11 +152,22 @@ export default function EmailContent() {
         </button>
         <button
           onClick={handleCopyEmail}
-          className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 px-4 rounded-lg transition-colors duration-200"
+          className="flex-1 bg-[#f47704] hover:bg-[#f47704]/90 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200"
         >
           Copy to Clipboard
         </button>
       </div>
+      <div className="flex gap-4">
+      {showImDone && (<button
+          onClick={handleImDone}
+          className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 px-4 rounded-lg transition-colors duration-200 mt-4"
+          style={{ width: '80%' }}
+        >
+          I'm Done!
+        </button>
+      )}
+      </div>
+
     </div>
     </>
   )
