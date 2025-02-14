@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { generateEmail } from '../actions/generateEmail'
 import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/components/ui/use-toast"
+import { toast, Toaster } from 'react-hot-toast';
 
 export default function EmailContent() {
   const [email, setEmail] = useState('')
@@ -71,6 +73,25 @@ export default function EmailContent() {
     setEmail(e.target.value)
   }
 
+  const handleCopyEmail = async () => {
+    const emailAddress = 'delhicm@example.com'
+    const subject = 'Urgent: Action Needed on Delhi Air Pollution'
+    const fullEmailContent = `To: ${emailAddress}\nSubject: ${subject}\n\n${email}`
+    
+    try {
+      await navigator.clipboard.writeText(fullEmailContent)
+      toast("Email copied to clipboard.\nOpen your email client to send it!", {
+        duration: 2000,
+        className: "bg-gray-800 text-white"
+      })
+    } catch (err) {
+      toast("Failed to copy email", {
+        duration: 2000,
+        className: "bg-gray-800 text-white"
+      })
+    }
+  }
+
   const handleSendEmail = () => {
     const subject = encodeURIComponent('Urgent: Action Needed on Delhi Air Pollution')
     const body = encodeURIComponent(email)
@@ -102,6 +123,8 @@ export default function EmailContent() {
   }
 
   return (
+    <>
+    <Toaster/>
     <div className="max-w-2xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-sm">
       <h1 className="text-3xl font-bold mb-6 text-[#f47704]">Your Personalized Email</h1>
       <p className="text-gray-600 mb-6">
@@ -112,12 +135,21 @@ export default function EmailContent() {
         onChange={handleEmailEdit}
         className="min-h-[600px] resize-y mb-6"
       />
-      <button
-        onClick={handleSendEmail}
-        className="w-full bg-[#f47704] hover:bg-[#f47704]/90 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200"
-      >
-        Send Email
-      </button>
+      <div className="flex gap-4">
+        <button
+          onClick={handleSendEmail}
+          className="flex-1 bg-[#f47704] hover:bg-[#f47704]/90 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200"
+        >
+          Send Email
+        </button>
+        <button
+          onClick={handleCopyEmail}
+          className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 px-4 rounded-lg transition-colors duration-200"
+        >
+          Copy to Clipboard
+        </button>
+      </div>
     </div>
+    </>
   )
 }
