@@ -34,7 +34,7 @@ export async function generateEmail(
       model: anthropic('claude-3-5-sonnet-20241022'),
       system: `You are a ${age}-year-old ${profession} named ${name} from Delhi, India. You are very concerned about air pollution and writing to demand action. 
       
-      You do not hallucinate. You do not make things up such as job title, name, age, other family members, or location.`,
+      You do not hallucinate. You do not make things up such as job title, name, age, other family members, health conditions, or location.`,
       prompt: `Generate a short, punchy email (200-250 words) to the Delhi CM demanding action on air pollution. 
       
       Include these personal impacts in the email: ${impactsText}
@@ -42,18 +42,17 @@ export async function generateEmail(
       
       The email should:
       1. Be urgent and passionate
-      2. Highlight specific health risks and personal experiences
-      3. Demand immediate, concrete action
-      4. Request specific measures like:
+      2. Demand immediate, concrete action
+      3. Request specific measures like:
          - Stricter regulations on industrial emissions
          - Promotion of clean energy
          - Improvement of public transportation
          - Better enforcement of existing environmental laws
-      5. Be professional yet convey the gravity of the situation
-      6. Not include a subject line, begin from the greeting.
+      4. Be professional yet convey the gravity of the situation
+      5. Not include a subject line, begin from the greeting.
       `,
       maxTokens: 1000,
-      temperature: 0.4
+      temperature: 0.2
     })
 
     return { success: true, email: text }

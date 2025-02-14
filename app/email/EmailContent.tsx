@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { generateEmail } from '../actions/generateEmail'
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
@@ -20,6 +20,7 @@ export default function EmailContent() {
   const [error, setError] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const searchParams = useSearchParams()
+  const router = useRouter()
 
   useEffect(() => {
     const name = searchParams.get('name') || ''
@@ -90,12 +91,16 @@ export default function EmailContent() {
         className: "bg-gray-800 text-white"
       })
     }
+
+    router.push('/congratulations')
   }
 
   const handleSendEmail = () => {
     const subject = encodeURIComponent('Urgent: Action Needed on Delhi Air Pollution')
     const body = encodeURIComponent(email)
     window.location.href = `mailto:delhicm@example.com?subject=${subject}&body=${body}`
+
+    router.push('/congratulations')
   }
 
   if (isLoading) {
@@ -133,7 +138,7 @@ export default function EmailContent() {
       <Textarea
         value={email}
         onChange={handleEmailEdit}
-        className="min-h-[600px] resize-y mb-6"
+        className="min-h-[620px] resize-y mb-6"
       />
       <div className="flex gap-4">
         <button
