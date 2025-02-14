@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { generateEmail } from '../actions/generateEmail'
+import { Textarea } from "@/components/ui/textarea"
 
 export default function EmailContent() {
   const [email, setEmail] = useState('')
@@ -106,16 +107,14 @@ export default function EmailContent() {
       <p className="text-gray-600 mb-6">
         Review your email below. Feel free to make any edits before sending.
       </p>
-      <textarea
-        ref={textareaRef}
+      <Textarea
         value={email}
         onChange={handleEmailEdit}
-        className="w-full min-h-[200px] p-4 border border-gray-300 rounded-lg mb-6 resize-none overflow-hidden focus:ring-[#f47704] focus:border-[#f47704] transition-colors"
-        aria-label="Generated email content"
+        className="min-h-[600px] resize-y mb-6"
       />
       <button
         onClick={handleSendEmail}
-        className="w-full bg-[#f47704] hover:bg-[#f47704]/90 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#f47704] focus:ring-offset-2"
+        className="w-full bg-[#f47704] hover:bg-[#f47704]/90 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200"
       >
         Send Email
       </button>
