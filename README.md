@@ -17,6 +17,15 @@ This project aims to create a platform for promoting pollution-free initiatives 
    npm install
    ```
 
+3. Configure env variables
+
+Copy `.env.example` to `.env` and update the values if necessary.
+
+For the RESEND_API_KEY:
+1. Sign up for a free account at [Resend](https://resend.com)
+2. Create an API key from your dashboard
+3. Add the API key to your `.env` file
+
 ## Running the Application
 To run the application locally, use the following command:
 ```bash
