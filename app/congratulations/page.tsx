@@ -4,16 +4,17 @@ import React from 'react';
 
 const CongratulationsPage = () => {
     const handleShare = (platform: string) => {
-        const message = "I just helped save Delhi! Join me in making a difference! 🎉";
-        const url = "https://pollutionfreeindia.org"; // Replace with your app's URL
+        const message = "I just helped save Delhi! Join me in making a difference!";
+        const url = "https://pollutionfreeindia.org";
+        let both = message + ' ' + url;
 
         let shareUrl = '';
         if (platform === 'facebook') {
-            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(message)}`;
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
         } else if (platform === 'twitter') {
             shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(message)}`;
         } else if (platform === 'bluesky') {
-            shareUrl = `https://bsky.app/post?text=${encodeURIComponent(message)}`;
+            shareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(both)}`;
         }
 
         window.open(shareUrl, '_blank');
@@ -45,12 +46,12 @@ const CongratulationsPage = () => {
         >
             Share on X
         </button>
-        {/* <button
+        <button
             onClick={() => handleShare('bluesky')}
             className="flex-1 bg-blue-300 hover:bg-blue-400 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200"
         >
             Share on Bluesky
-        </button> */}
+        </button> 
       </div>
     </div>
     );
