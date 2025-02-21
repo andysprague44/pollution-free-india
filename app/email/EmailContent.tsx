@@ -24,36 +24,54 @@ export default function EmailContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
+  // Keep track of whether we've generated for these params
+  const generationKey = useRef('')
+
   useEffect(() => {
     const name = searchParams.get('name') || ''
     const age = searchParams.get('age') || ''
     const profession = searchParams.get('profession') || ''
-    const impacts = JSON.parse(searchParams.get('impacts') || '[]')
+    const impacts = searchParams.get('impacts') || '[]'
     const additionalComments = searchParams.get('additionalComments') || ''
+
+    // Create a key from all params to detect changes
+    const newKey = `${name}-${age}-${profession}-${impacts}-${additionalComments}`
+    
+    // Only generate if params have changed
+    if (newKey === generationKey.current) {
+      return
+    }
+    generationKey.current = newKey
 
     setFormData({
       name,
       age,
       profession,
-      impacts,
+      impacts: JSON.parse(impacts),
       additionalComments
     })
 
     const generateEmailContent = async () => {
-      setIsLoading(true)
-      const result = await generateEmail(
-        name,
-        age,
-        profession,
-        impacts,
-        additionalComments
-      )
-      setIsLoading(false)
+      try {
+        setIsLoading(true)
+        const result = await generateEmail(
+          name,
+          age,
+          profession,
+          JSON.parse(impacts),
+          additionalComments
+        )
 
-      if (result.success) {
-        setEmail(result.email || '')
-      } else {
-        setError(result.error || 'An error occurred while generating the email.')
+        if (result.success && result.email) {
+          setEmail(result.email)
+          setError('')
+        } else {
+          setError(result.error || 'An error occurred while generating the email.')
+        }
+      } catch (err) {
+        setError('Failed to generate email. Please try again.')
+      } finally {
+        setIsLoading(false)
       }
     }
 
