@@ -6,6 +6,7 @@ import { generateEmail } from '../actions/generateEmail'
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
 import { toast, Toaster } from 'react-hot-toast';
+import { trackEvent } from '../utils/analytics';
 
 export default function EmailContent() {
   const [showImDone, setShowImDone] = useState(false);
@@ -87,11 +88,13 @@ export default function EmailContent() {
         className: "bg-gray-800 text-white"
       })
       setShowImDone(true);
+      trackEvent('click', 'email', 'copy_email');
     } catch (err) {
       toast("Failed to copy email", {
         duration: 2000,
         className: "bg-gray-800 text-white"
       })
+      trackEvent('error', 'email', 'copy_email_failed');
     }
   }
 
@@ -100,9 +103,11 @@ export default function EmailContent() {
     const body = encodeURIComponent(email)
     window.location.href = `mailto:cmdelhi@nic.in?subject=${subject}&body=${body}`
     setShowImDone(true);
+    trackEvent('click', 'email', 'send_email');
   }
 
   const handleImDone = () => {
+    trackEvent('click', 'flow', 'completed');
     router.push('/congratulations')
   }
 

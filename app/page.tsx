@@ -1,8 +1,15 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 import AQIDisplay from "./components/AQIDisplay";
+import { trackEvent } from './utils/analytics';
+import { useEffect } from 'react';
 
 export default function Home() {
+  useEffect(() => {
+    trackEvent('page_view', 'homepage');
+  }, []);
   return (
     <>
       <section className="relative bg-gray-900 text-white">
