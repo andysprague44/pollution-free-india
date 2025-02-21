@@ -46,12 +46,12 @@ const CongratulationsPage = () => {
         >
             Share on X
         </button>
-        <button
+        {/* <button
             onClick={() => handleShare('bluesky')}
             className="flex-1 bg-blue-300 hover:bg-blue-400 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200"
         >
             Share on Bluesky
-        </button> 
+        </button>  */}
       </div>
     </div>
     );
