@@ -76,7 +76,7 @@ export default function EmailContent() {
   }
 
   const handleCopyEmail = async () => {
-    const emailAddress = 'delhicm@example.com'
+    const emailAddress = 'cmdelhi@nic.in'
     const subject = 'Urgent: Action Needed on Delhi Air Pollution'
     const fullEmailContent = `To: ${emailAddress}\nSubject: ${subject}\n\n${email}`
     
@@ -86,7 +86,7 @@ export default function EmailContent() {
         duration: 2000,
         className: "bg-gray-800 text-white"
       })
-      setShowImDone(true); // Show "I'm Done!" button
+      setShowImDone(true);
     } catch (err) {
       toast("Failed to copy email", {
         duration: 2000,
@@ -98,8 +98,8 @@ export default function EmailContent() {
   const handleSendEmail = () => {
     const subject = encodeURIComponent('Urgent: Action Needed on Delhi Air Pollution')
     const body = encodeURIComponent(email)
-    window.location.href = `mailto:delhicm@example.com?subject=${subject}&body=${body}`
-    setShowImDone(true); // Show "I'm Done!" button
+    window.location.href = `mailto:cmdelhi@nic.in?subject=${subject}&body=${body}`
+    setShowImDone(true);
   }
 
   const handleImDone = () => {
