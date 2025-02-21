@@ -4,10 +4,9 @@ import React from 'react';
 
 const CongratulationsPage = () => {
     const handleShare = (platform: string) => {
-        const message = "I just helped save Delhi! Join me in making a difference!";
+        const message = "I just raised my voice for clean air in Delhi. Join me in making a difference!";
         const url = "https://pollutionfreeindia.org";
         let both = message + ' ' + url;
-
         let shareUrl = '';
         if (platform === 'facebook') {
             shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
@@ -16,7 +15,6 @@ const CongratulationsPage = () => {
         } else if (platform === 'bluesky') {
             shareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(both)}`;
         }
-
         window.open(shareUrl, '_blank');
     };
 
