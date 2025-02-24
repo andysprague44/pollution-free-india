@@ -5,8 +5,8 @@ export default function FAQ() {
       
       <div className="space-y-6">
         <div>
-          <h2 className="text-xl font-semibold mb-2">What is The Article21 Initiative?</h2>
-          <p>The Article21 Initiative is a citizen-led campaign to demand action on Delhi's air pollution crisis, invoking our fundamental right to clean air under Article 21 of Constitution of India.</p>
+          <h2 className="text-xl font-semibold mb-2">What is The Clean Air 21 Initiative?</h2>
+          <p>The Clean Air 21 Initiative is a citizen-led campaign to demand action on Delhi's air pollution crisis, invoking our fundamental right to clean air under Article 21 of Constitution of India.</p>
         </div>
 
         <div>

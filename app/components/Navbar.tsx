@@ -11,12 +11,12 @@ export default function Navbar() {
           {/* Logo for mobile, Text for desktop */}
           <Link href="/" className="flex items-center">
             <img
-              src="/logo.png"
-              alt="Article21 Initiative Logo"
+              src="/logo.svg"
+              alt="The Clean Air 21 Initiative Logo"
               className="md:hidden h-10 w-auto"
             />
             <span className="hidden md:block text-[#f47704] text-xl font-bold">
-              The Article21 Initiative
+              The Clean Air 21 Initiative
             </span>
           </Link>
 

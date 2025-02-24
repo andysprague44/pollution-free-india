@@ -15,10 +15,13 @@ declare global {
 }
 
 export const metadata: Metadata = {
-  title: 'The Article21 Initiative - Clean Air for Delhi',
+  title: 'The Clean Air 21 Initiative - Clean Air for Delhi',
   description: 'Join our campaign to demand action on air pollution in Delhi. Together, we can make a difference!',
+  icons: {
+    icon: '/air.ico',
+  },
   openGraph: {
-    title: 'The Article21 Initiative - Clean Air for Delhi',
+    title: 'The CleanAir21 Initiative - Clean Air for Delhi',
     description: 'Join our campaign to demand action on air pollution in Delhi. Together, we can make a difference!',
     url: 'https://pollutionfreeindia.org/',
     siteName: 'Pollution Free India',
@@ -34,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Article21 Initiative - Clean Air for Delhi',
+    title: 'The Clean Air 21 Initiative - Clean Air for Delhi',
     description: 'Join our campaign to demand action on air pollution in Delhi. Together, we can make a difference!',
     images: ['https://pollutionfreeindia.org/og-image.jpg'],
   },
@@ -48,7 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/a21.ico" type="image/x-icon" />
+        <link rel="icon" href="/air.ico" type="image/x-icon" />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
           strategy="afterInteractive"
