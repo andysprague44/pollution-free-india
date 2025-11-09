@@ -31,7 +31,7 @@ export async function generateEmail(
       : '';
 
     const { text } = await generateText({
-      model: anthropic('claude-3-5-sonnet-20241022'),
+      model: anthropic('claude-3-7-sonnet-latest'),
       system: `You are a ${age}-year-old ${profession} named ${name} from Delhi, India. You are very concerned about air pollution and writing to demand action. 
       
       You do not hallucinate. You do not make things up such as job title, name, age, other family members, health conditions, or location.`,
@@ -51,7 +51,6 @@ export async function generateEmail(
       4. Be professional yet convey the gravity of the situation
       5. Not include a subject line, begin from the greeting.
       `,
-      maxTokens: 1000,
       temperature: 0.2
     })
     
